@@ -3,6 +3,7 @@ module Proofs.Weakening where
 open import Syntax
 open import Inference
 open import Util.Membership
+open import Proofs.Swapping
 
 open import Data.Nat
 open import Data.List
@@ -22,7 +23,7 @@ weaken (ccat e₁ e₂)
   = ccat (weaken e₁) (weaken e₂)
 weaken (len e)
   = len (weaken e)
-weaken (lett e x e₁) = {!!}
+weaken (lett e₁ e₂) = lett (weaken e₁) (swap 0 (weaken e₂))
 
 weakening : ∀ {Γ e τ τ'}
             → (ε : Γ ⊢ e ∷ τ)
@@ -46,4 +47,4 @@ weakening {τ' = τ'} (lett ε₁ ε₂)
   |    weakening {τ' = τ'} ε₂
 ...
   | ε₁' | ε₂'
-  = lett ε₁' {!!}
+  = lett ε₁' (swapping ε₂' (there here))
