@@ -1,7 +1,11 @@
-module Proofs.Substituting where
+module Chapters.Ch04.Proofs.Substituting where
 
-open import Syntax
-open import Inference
+open import Util.Membership
+open import Util.Insert
+open Util.Insert.Proofs
+
+open import Chapters.Ch04.Language
+open import Chapters.Ch04.Proofs.Weakening
 
 open import Data.List
 open import Data.Nat
@@ -12,12 +16,6 @@ open import Relation.Binary.PropositionalEquality
 open import Relation.Nullary
 
 open import Function
-
-open import Util.Membership
-open import Util.Insert
-open Util.Insert.Proofs
-
-open import Proofs.Weakening
 
 syntax substitute j e eₛ = [ eₛ / j ] e
 substitute : (i : ℕ) → (e eₛ : Exp) → Exp

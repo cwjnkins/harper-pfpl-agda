@@ -1,9 +1,9 @@
-module Proofs.Weakening where
+module Chapters.Ch04.Proofs.Weakening where
 
-open import Syntax
-open import Inference
+open import Chapters.Ch04.Language
+
 open import Util.Membership
-open import Proofs.Swapping
+open import Chapters.Ch04.Proofs.Swapping
 
 open import Data.Nat
 open import Data.List

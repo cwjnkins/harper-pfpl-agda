@@ -1,13 +1,13 @@
-module Proofs.Decomposing where
+module Chapters.Ch04.Proofs.Decomposing where
 
-open import Syntax
-open import Inference
-open import Proofs.Substituting
-open import Proofs.Unicity
-open import Proofs.Weakening
 open import Util.Insert
 open Util.Insert.Proofs
 open import Util.Membership
+
+open import Chapters.Ch04.Language
+open import Chapters.Ch04.Proofs.Substituting
+open import Chapters.Ch04.Proofs.Unicity
+open import Chapters.Ch04.Proofs.Weakening
 
 open import Data.Fin
   hiding (compare ; _+_)

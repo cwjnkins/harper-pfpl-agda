@@ -1,7 +1,6 @@
-module Proofs.Unicity where
+module Chapters.Ch04.Proofs.Unicity where
 
-open import Syntax
-open import Inference
+open import Chapters.Ch04.Language
 open import Util.Membership
 open Util.Membership.Proofs
 
