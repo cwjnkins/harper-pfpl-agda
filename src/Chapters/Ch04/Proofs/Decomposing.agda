@@ -14,9 +14,11 @@ open import Data.Fin
 open import Data.List
 open import Data.Nat
 
+open import Function
+
 open import Relation.Binary.PropositionalEquality
 
-decomposing : ∀ {Γ τ τₛ e eₛ} {j : Fin (length Γ)}
+decomposing : ∀ {Γ τ τₛ e eₛ} {j : Fin (suc ∘ length $ Γ)}
               → Γ ⊢ [ eₛ / toℕ j ] e ∷ τ
               → Γ ⊢ eₛ ∷ τₛ
               → (insert Γ j τₛ) ⊢ e ∷ τ

@@ -47,53 +47,53 @@ substitute i (len e) eₛ
 substitute i (lett e e₁) eₛ
   = lett (substitute i e eₛ) (substitute (suc i) e₁ (weaken eₛ))
 
-substituting : ∀ {Γ τ τₛ e eₛ} {j : Fin (length Γ)}
+substituting : ∀ {Γ τ τₛ e eₛ} {j : Fin (suc ∘ length $ Γ)}
                → (insert Γ j τₛ) ⊢ e ∷ τ
                → Γ ⊢ eₛ ∷ τₛ
                → Γ ⊢ [ eₛ / toℕ j ] e ∷ τ
-substituting {[]} {j = ()} (var x₁) εₛ
-substituting {x ∷ Γ} {j = j} (var {x = x₁} x₂) εₛ
+substituting {j = j} (var {x = x} x₁) εₛ
   with toℕ j
   | inspect toℕ j
 ...
   | j' | inspj
-  with compare j' x₁
-substituting {x ∷ Γ} {j = j} (var x₂) εₛ
+  with compare j' x
+substituting {Γ} {j = j} (var x₁) εₛ
+  -- var: less
   | m | Reveal_·_is_.[ eq ]
   | less .m k
-  with subst
-         (λ m' → _ ∈ insert (x ∷ Γ) j _ at suc (m' + k))
-         (sym eq) x₂
+  with subst (λ m' → _ ∈ insert Γ j _ at suc (m' + k))
+             (sym eq) x₁
 ...
-  | x₂'
-  with insert-∈at-before-inv (x ∷ Γ) {j} x₂'
-  -- remove the insert subexpr from the type of x₂' 
+  | x₁'
+  with insert-∈at-before-inv Γ {j} x₁'
 ...
-  | x₂″
-  with subst
-    (λ m' → _ ∈ x ∷ Γ at (m' + k))
-    eq x₂″
+  | x₁″
+  with subst (λ m' → _ ∈ Γ at (m' + k))
+             eq x₁″
 ...
-  | x₂‴
-  = var x₂‴
-substituting {x₁ ∷ Γ} {j = j} (var x₂) εₛ
+  | x₁‴
+  = var x₁‴
+substituting {Γ} {j = j} (var x₁) εₛ
+  -- var: equal
   | x | Reveal_·_is_.[ eq ]
   | equal .x
-  with subst
-         (λ m' → _ ∈ insert (x₁ ∷ Γ) j _ at m')
-         (sym eq) x₂
+  with subst (λ m' → _ ∈ insert Γ j _ at m')
+             (sym eq) x₁
 ...
-  | x₂'
-  with insert-∈at-eq (x₁ ∷ Γ) x₂'
-  -- the type of eₛ has to be the same as
-  -- the type indexed by x₂'
+  | x₁'
+  with insert-∈at-eq Γ x₁'
+  -- the type of eₛ (τₛ) has to be the same as
+  -- the type indexed by x₁', since this is
+  -- the var we're replacing
 ...
-  | τ'≡τₛ
-  = subst (λ τ' → _ ⊢ _ ∷ τ') (sym τ'≡τₛ) εₛ
-substituting {x₁ ∷ Γ} (var x₂) εₛ
+  | τ≡τₛ
+  = subst (λ τ' → _ ⊢ _ ∷ τ') (sym τ≡τₛ) εₛ
+substituting (var x₁) εₛ
+  -- var: greater
   | .(suc (x + k)) | Reveal_·_is_.[ eq ]
   | greater x k
-  = var (insert-∈at-after-inv (x₁ ∷ Γ) x₂ eq)
+  = var (insert-∈at-after-inv _ x₁ eq)
+
 substituting num[ n ] εₛ
   = num[ n ]
 substituting str[ s ] εₛ
