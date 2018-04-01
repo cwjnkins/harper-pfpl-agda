@@ -1,4 +1,4 @@
-agda-pfpl
+agda-harper-pfpl
 =========
 
 Implementation and proofs of the (abstract syntax) of the languages in Robert Harper's "Practical Foundations for Programming Languages".
